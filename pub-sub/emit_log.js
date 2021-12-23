@@ -8,8 +8,9 @@ amqp.connect('amqp://127.0.0.1', (error0, connection) => {
     if (error1) {
       throw error1;
     }
-    var exchange = 'logs';
-    var msg = process.argv.slice(2).join(' ') || 'Hello World!';
+    const exchange = 'logs';
+    const defaultMsg = `Some message with a random number: ${Math.round(Math.random()*100)}`;
+    const msg = process.argv.slice(2).join(' ') || defaultMsg;
 
     channel.assertExchange(exchange, 'fanout', {
       durable: false

@@ -8,7 +8,7 @@ amqp.connect('amqp://127.0.0.1', (error0, connection) => {
     if (error1) {
       throw error1;
     }
-    var exchange = 'logs';
+    const exchange = 'logs';
 
     channel.assertExchange(exchange, 'fanout', {
       durable: false
