@@ -15,6 +15,7 @@ amqp.connect('amqp://127.0.0.1', (error0, connection) => {
         channel.assertQueue(queue, {
           durable: true
         });
+        channel.prefetch(1);
 
         channel.consume(queue, (msg) => {
           const secs = Math.round(Math.random()*3) + 1;
@@ -22,11 +23,15 @@ amqp.connect('amqp://127.0.0.1', (error0, connection) => {
           console.log(" [x] Received %s", msg.content.toString());
           setTimeout(() => {
             console.log(` [x] Done in ${secs}secs`);
+            channel.ack(msg);
           }, secs * 1000);
         }, {
-          // automatic acknowledgment mode,
+          // // automatic acknowledgment mode,
+          // // see ../confirms.html for details
+          // noAck: true
+          // manual acknowledgment mode,
           // see ../confirms.html for details
-          noAck: true
+          noAck: false
         });
     });
 });
