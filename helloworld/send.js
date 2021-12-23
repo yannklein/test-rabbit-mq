@@ -12,7 +12,7 @@ amqp.connect('amqp://127.0.0.1', (error0, connection) =>  {
         }
 
         const queue = 'hello';
-        const msg = process.argv[2];
+        const msg = process.argv[2] || `Some message with a random number: ${Math.round(Math.random()*100)}`;
 
         channel.assertQueue(queue, {
             durable: false
